@@ -6,15 +6,19 @@
 #    By: daviles- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 14:00:44 by daviles-          #+#    #+#              #
-#    Updated: 2023/09/20 18:43:25 by daviles-         ###   ########.fr        #
+#    Updated: 2023/10/06 21:42:55 by daviles-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
+NAME_BONUS = checker
+
 #########################        LIBS        #################################
 
 NAMELIB	=	srcs/push_swap.a
+
+BONUSLIB	=	bonus/push_swap_bonus.a
 
 LIB 	=	libft/libft.a
 
@@ -24,11 +28,22 @@ SRC_DIR = srcs
 
 ###########################    FILES   ####################################
 
-SRC = $(addprefix $(SRC_DIR)/, main.c utils.c parse.c setinit.c \
+MAIN = $(addprefix $(SRC_DIR)/, main.c)
+
+SRC = $(addprefix $(SRC_DIR)/, utils.c parse.c setinit.c \
 	  handle_nodes.c moves_swpu.c moves_rr.c sort.c set_position.c \
 	  set_distance.c sort_small.c)
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(MAIN:.c=.o) $(SRC:.c=.o)
+
+
+##########################   FILES BONUS   ################################
+
+MAIN_BONUS = ./bonus/main_bonus.c 
+
+SRC_BONUS = ./bonus/moves_rr_bonus.c ./bonus/moves_swpu_bonus.c
+
+OBJS_BONUS = $(MAIN_BONUS:.c=.o) $(SRC_BONUS:.c=.o) $(SRC:.c=.o)
 
 ##########################   COMPILING SETTINGS   #########################
 
@@ -59,16 +74,22 @@ $(NAME) : $(OBJ)
 	@echo " \___)   \___)   \___)$(NOC)"
 	@echo "$(GREEN)\nRun ./Push_swap and write your list in one string, or separated by spaces.\n$(NOC)"
 
+$(NAME_BONUS): $(OBJS_BONUS)
+	$(MAKE) bonus -sC ./libft
+	$(COMP) $(OBJS_BONUS) -o $@
+
+bonus : $(NAME_BONUS)
+
 %.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean :
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(OBJS_BONUS)
 	$(MAKE) fclean -sC ./libft
 
 fclean : clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(NAME_BONUS)
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re bonus

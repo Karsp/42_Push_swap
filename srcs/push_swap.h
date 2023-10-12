@@ -6,7 +6,7 @@
 /*   By: daviles- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 20:13:20 by daviles-          #+#    #+#             */
-/*   Updated: 2023/09/15 02:39:28 by daviles-         ###   ########.fr       */
+/*   Updated: 2023/10/06 21:39:49 by daviles-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ void	ft_rr(t_stack **stack_a, t_stack **stack_b);
 void	ft_rrx(t_stack **stack, char x);
 void	ft_rrr(t_stack **stack_a, t_stack **stack_b);
 void	ft_loop_rotate(t_stack **stack_a, t_stack **stack_b, int i, char x);
+
 #endif
